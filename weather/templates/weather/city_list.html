@@ -1,0 +1,38 @@
+
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block styles %}<link rel="stylesheet" href="{% static 'css/city_list.css' %}" />{% endblock %}
+
+{% block content %}
+    {% for city in city_list %}
+        <p><a class="city-block" href="#">
+            {{ city.name }} ({{ city.country.name }})
+        </a></p>
+    {% empty %}
+        <p>No cities found</p>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <div id="paginator">
+            <ul class="pagination pagination-sm">
+                {% if first %}
+                    <li><a href="?q={{ q }};page={{ first }}">{{ first }}</a></li>
+                    <li><a class="disabled">...</a></li>
+                {% endif %}
+                {% for i in page_range %}
+                    {% if i == page_obj.number  %}
+                        <li class="active"><span>{{ i }}</span></li>
+                    {% else %}
+                        <li><a href="?q={{ q }};page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if last %}
+                    <li><a class="disabled">...</a></li>
+                    <li><a href="?q={{ q }};page={{ last }}">{{ last }}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

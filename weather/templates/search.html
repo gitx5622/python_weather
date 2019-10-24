@@ -1,0 +1,6 @@
+<form method="GET" action="{% url 'weather:search' %}">
+{% for obj in items %}
+   {{ obj.name }}
+   {{ obj.id }}
+ 
+{% endfor %}
